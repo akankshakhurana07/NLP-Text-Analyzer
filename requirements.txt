@@ -1,7 +1,10 @@
-streamlit
-spacy
+streamlit>=1.30
+spacy==3.7.2
 pandas
 matplotlib
 wordcloud
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm/en_core_web_sm-3.7.1-py3-none-any.whl
-https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm/fr_core_news_sm-3.7.0-py3-none-any.whl
+numpy<2.0
+
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
+
