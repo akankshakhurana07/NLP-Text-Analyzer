@@ -1,5 +1,4 @@
 import streamlit as st
-matplotlib.use("Agg")
 import spacy
 from spacy.lang.fr.stop_words import STOP_WORDS as FR_STOP
 from spacy.lang.en.stop_words import STOP_WORDS as EN_STOP
