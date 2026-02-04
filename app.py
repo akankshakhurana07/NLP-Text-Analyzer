@@ -1,11 +1,13 @@
 import streamlit as st
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 import spacy
 from spacy.lang.fr.stop_words import STOP_WORDS as FR_STOP
 from spacy.lang.en.stop_words import STOP_WORDS as EN_STOP
 from string import punctuation
 from heapq import nlargest
 from wordcloud import WordCloud
-import matplotlib.pyplot as plt
 import pandas as pd
 
 st.set_page_config(page_title="NLP Text Analyzer", page_icon="🌍", layout="wide")
@@ -109,15 +111,11 @@ POS_CLASS = {"NOUN":"pos-NOUN", "VERB":"pos-VERB", "ADJ":"pos-ADJ", "ADV":"pos-A
 LEGEND_ITEMS = [("NOUN","#7eaee0"),("VERB","#b07ee0"),("ADJ","#7ee0a8"),("ADV","#e0b07e"),("OTHER","#8a8a96")]
 
 
-# ── Model Loader (auto-downloads if missing) ──
+# ── Model Loader (simplified for deployment) ──
 @st.cache_resource(show_spinner="Loading model …")
 def load_model(model_name):
-    try:
-        return spacy.load(model_name)
-    except OSError:
-        from spacy.cli import download
-        download(model_name)
-        return spacy.load(model_name)
+    """Load spaCy model (models pre-installed via requirements.txt)"""
+    return spacy.load(model_name)
 
 
 # ── Helper: Word Frequency ──
@@ -212,7 +210,7 @@ if col2.button("↺ Reset"):
 st.markdown('</div>', unsafe_allow_html=True)
 
 if not input_text.strip():
-    st.warning("Kuch text dalo please.")
+    st.warning("Please enter some text to analyze.")
     st.stop()
 
 
@@ -229,7 +227,7 @@ if analyze_clicked:
     st.markdown('<div style="background:rgba(126,174,224,.1);border-left:3px solid #7eaee0;padding:8px 13px;border-radius:0 8px 8px 0;color:#7eaee0;font-size:.82rem;margin-bottom:8px;">✅ Analysis complete!</div>', unsafe_allow_html=True)
 
 
-# ── Stats Row (loop se banao — no repeated HTML blocks) ──
+# ── Stats Row ──
 stats = [("Tokens", len(all_tokens)), ("Sentences", len(all_sentences)), ("Unique Words", len(word_freq)), ("Summary Sents", len(summary))]
 stats_html = '<div class="card" style="padding:.75rem 1rem;"><div class="stats-row">'
 for label, value in stats:
@@ -246,7 +244,7 @@ tab_tokens, tab_table, tab_summary, tab_freq, tab_cloud = st.tabs(["🏷️ Toke
 with tab_tokens:
     st.markdown('<div class="card">', unsafe_allow_html=True)
 
-    # Legend (loop se banao)
+    # Legend
     legend_html = '<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:12px;">'
     for name, color in LEGEND_ITEMS:
         legend_html += f'<div style="display:flex;align-items:center;gap:6px;font-size:.73rem;color:#6b6b73;"><div style="width:10px;height:10px;border-radius:3px;background:{color};"></div>{name}</div>'
