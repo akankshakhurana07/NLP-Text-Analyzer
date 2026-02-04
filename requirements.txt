@@ -1,8 +1,11 @@
 streamlit
-spacy==3.7.5
+spacy==3.7.2
+spacy-legacy
+spacy-loggers
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.0/fr_core_news_sm-3.7.0-py3-none-any.whl
+blis>=0.7.0,<0.8.0
 pandas
 matplotlib
 wordcloud
-
+pillow
